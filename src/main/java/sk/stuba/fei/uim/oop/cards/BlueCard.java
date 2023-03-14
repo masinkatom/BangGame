@@ -1,17 +1,12 @@
 package sk.stuba.fei.uim.oop.cards;
 
+import sk.stuba.fei.uim.oop.Card;
+
 public abstract class BlueCard extends Card{
-    private String type;
+    private boolean onTable;
 
     public BlueCard(String name) {
         super(name);
-        this.type = "blue";
     }
-
-    public String getType() {
-        return type;
-    }
-    
-
     
 }

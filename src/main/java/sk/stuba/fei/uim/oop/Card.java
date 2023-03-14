@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.cards;
+package sk.stuba.fei.uim.oop;
 
 public abstract class Card {
     private String name;

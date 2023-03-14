@@ -2,7 +2,7 @@ package sk.stuba.fei.uim.oop;
 
 import java.util.ArrayList;
 
-import sk.stuba.fei.uim.oop.Karty.Card;
+import sk.stuba.fei.uim.oop.cards.Card;
 
 public class Player {
     private int id;
@@ -16,6 +16,7 @@ public class Player {
         this.name = name;
         this.cardsTable = cardsTable;
         this.cardsHands = cardsHands;
+        
     }
 
     public int getId() {
@@ -42,6 +43,7 @@ public class Player {
     public void setCardsHands(ArrayList<Card> cardsHands) {
         this.cardsHands = cardsHands;
     }
+
 
 }
 

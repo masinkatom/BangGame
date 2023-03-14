@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.Karty;
+package sk.stuba.fei.uim.oop.cards;
 
 public abstract class BrownCard extends Card{
     private String type;

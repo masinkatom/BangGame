@@ -8,5 +8,18 @@ public class Bang extends BrownCard{
         super("BANG");
     }
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
+    @Override
+    public void play() {
+        System.out.println("hello "+ this.getName() + " here");
+        super.play();
+    }
+
+    
+
     
 }

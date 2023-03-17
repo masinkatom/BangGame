@@ -8,4 +8,8 @@ public class Pivo extends BrownCard {
         super("Pivo");
     }
     
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

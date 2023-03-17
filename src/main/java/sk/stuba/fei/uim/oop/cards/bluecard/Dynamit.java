@@ -7,5 +7,10 @@ public class Dynamit extends BlueCard{
     public Dynamit() {
         super("Dynamit");
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
     
 }

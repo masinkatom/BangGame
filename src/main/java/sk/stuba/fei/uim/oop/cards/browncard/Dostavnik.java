@@ -7,5 +7,10 @@ public class Dostavnik extends BrownCard{
     public Dostavnik() {
         super("Dostavnik");
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
     
 }

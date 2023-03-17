@@ -8,4 +8,8 @@ public class Vedla extends BrownCard{
         super("Vedla");
     }
     
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

@@ -14,6 +14,10 @@ public abstract class Card {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void play(){
+        System.out.println("card class here");
+    }
     
     
 }

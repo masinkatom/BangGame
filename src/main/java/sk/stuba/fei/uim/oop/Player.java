@@ -8,11 +8,11 @@ public class Player {
     private ArrayList<Card> cards;
     private int lives;
 
-    public Player(int id, String name, int lives) {
+    public Player(int id, String name) {
         this.id = id;
         this.name = name;
         this.cards = new ArrayList<>();
-        this.lives = lives;
+        this.lives = 4;
     }
 
     public int getId() {
@@ -51,4 +51,17 @@ public class Player {
         this.cards.add(card);
     }
     
+    public boolean isAlive(){
+        if (this.getLives() < 1){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkCardAmount(){
+        if (this.cards.size() >= this.getLives()){
+            return false;
+        }
+        return true;
+    }
 }

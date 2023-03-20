@@ -1,11 +1,19 @@
 package sk.stuba.fei.uim.oop;
 
+import java.util.LinkedList;
+
 public abstract class Card {
     private String name;
 
     public Card(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
 
     public String getName() {
         return name;
@@ -15,7 +23,7 @@ public abstract class Card {
         this.name = name;
     }
 
-    public void play(){
+    public void play(Player currPlayer, Player targetPlayer, LinkedList <Card> deck){
         System.out.println("card class here");
     }
     

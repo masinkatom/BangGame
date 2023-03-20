@@ -3,8 +3,6 @@ package sk.stuba.fei.uim.oop;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
 
 import sk.stuba.fei.uim.oop.cards.bluecard.Barrel;
 import sk.stuba.fei.uim.oop.cards.bluecard.Dynamit;
@@ -59,12 +57,15 @@ public class GameManager {
         this.giveCards();
 
         currPlayer = players.get(0);
-        while (players.size() > 1) {
+        while (players.size() > 1) {    // TODO UPRAVIT UKONCOVACIU PODMIENKU
             if (!currPlayer.isAlive()) {
                // TODO vratit karty do odhadzov. balicka v pripade smrti - a vyhodit hraca z arraylistu
+               currPlayer = this.nextPlayer();
             }
             this.playTurn();
             currPlayer = this.nextPlayer();
+
+            // TODO vymazat toto
             ZKlavesnice.readString("Cakam na input");
         }
 
@@ -130,14 +131,16 @@ public class GameManager {
         System.out.println("Na tahu je " + this.currPlayer.getName() + ".");
         this.giveTwoCards();
         System.out.println("Boli ti pridane 2 karty");
-        System.out.println("Tvoje karty: " + currPlayer.getCards());
+        
         boolean endRound = false;
         
         while (!endRound){
+            System.out.println("\nTvoje karty: " + currPlayer.getCards());
             String [] playerInput = parseTurnInput();
             switch(playerInput[0]){
                 case "h":{
-                    currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play();
+                    currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players.get(findTarget()),this.deck);
+                    // TODO vymazat kartu hracovi po pouziti (mozno v classe Card)
                     break;
     
                 }
@@ -151,17 +154,13 @@ public class GameManager {
                     break;
                 }
                 default: {
-                    playerInput = parseTurnInput();
                     break;
                 }
                 
-                //TApsak
-                //ruthenian
-    
+                //Alex Tapsak virginia
             }
+
         }
-        
-        
 
     }
 
@@ -173,24 +172,32 @@ public class GameManager {
     }
 
     private String[] parseTurnInput(){
-        String [] in = new String[10];
-        try {
+        String [] in;
+        try{
 
             do {
                 in = ZKlavesnice.readString("\nHraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola").split(" ");
+                if(in[0].equals("") && in.length == 1) return in;
             }
-            while ((Integer.parseInt(in[1]) > currPlayer.getCards().size() || Integer.parseInt(in[1]) < 1));
-        
-        } catch (Exception e) {
-           System.out.println("Zadal si neplatne udaje!");
-           in[0] = "x";
-           return in;
+            while (in.length != 2 || Integer.parseInt(in[1]) > currPlayer.getCards().size() || Integer.parseInt(in[1]) < 1);
+
+            in[1] = Integer.toString(Integer.parseInt(in[1])-1);
+
+        } catch (NumberFormatException e){
+           System.out.println("Zly vstup, zadavaj este raz");
+           in = parseTurnInput();
         }
         
-        
-        in[1] = Integer.toString(Integer.parseInt(in[1])-1);
-        
         return in;
+    }
+
+    private int findTarget(){
+        int playerNum;
+        do {
+            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)");
+        } while (playerNum > players.size() || playerNum < 1);
+        
+        return playerNum-1;
     }
 
 }

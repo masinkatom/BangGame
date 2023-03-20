@@ -18,10 +18,12 @@ public abstract class BlueCard extends Card{
         this.onTable = onTable;
     }
 
+    
+
     @Override
-    public void play() {
-        this.setOnTable(true);
-        super.play();
+    public String toString() {
+        if (this.isOnTable()) return this.getName() + " (Na stole)";
+        return this.getName();
     }
     
     

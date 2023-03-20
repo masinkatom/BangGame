@@ -8,8 +8,4 @@ public class Vazenie extends BlueCard{
         super("Vazenie");
     }
     
-    @Override
-    public String toString() {
-        return this.getName();
-    }
 }

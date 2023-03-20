@@ -1,6 +1,11 @@
 package sk.stuba.fei.uim.oop.cards.browncard;
 
+import java.util.LinkedList;
+
+import sk.stuba.fei.uim.oop.Card;
+import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BrownCard;
+import sk.stuba.fei.uim.oop.cards.bluecard.Barrel;
 
 public class Bang extends BrownCard{
 
@@ -9,15 +14,27 @@ public class Bang extends BrownCard{
     }
 
     @Override
-    public String toString() {
-        return this.getName();
+    public void play(Player currPlayer, Player targetPlayer, LinkedList<Card> deck) {
+        if(checkForDefense(targetPlayer)){
+            System.out.println("SUPER");
+        }
+        
+        super.play(currPlayer, targetPlayer, deck);
     }
 
-    @Override
-    public void play() {
-        System.out.println("hello "+ this.getName() + " here");
-        super.play();
+    private boolean checkForDefense(Player targetPlayer){
+        for (Card card : targetPlayer.getCards()) {
+            if (card instanceof Barrel){
+                Barrel b = new Barrel(card);
+                if(b.isOnTable()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
+
+    
 
     
 

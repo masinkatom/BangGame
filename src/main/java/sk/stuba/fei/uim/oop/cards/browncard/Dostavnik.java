@@ -8,9 +8,5 @@ public class Dostavnik extends BrownCard{
         super("Dostavnik");
     }
 
-    @Override
-    public String toString() {
-        return this.getName();
-    }
     
 }

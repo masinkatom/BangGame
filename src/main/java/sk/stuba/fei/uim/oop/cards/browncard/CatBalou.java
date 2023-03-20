@@ -8,8 +8,4 @@ public class CatBalou extends BrownCard{
         super("Cat Balou");
     }
     
-    @Override
-    public String toString() {
-        return this.getName();
-    }
 }

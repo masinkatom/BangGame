@@ -8,8 +8,4 @@ public class Indiani extends BrownCard{
         super("Indiani");
     }
     
-    @Override
-    public String toString() {
-        return this.getName();
-    }
 }

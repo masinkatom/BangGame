@@ -16,8 +16,10 @@ public class Bang extends BrownCard{
     @Override
     public void play(Player currPlayer, Player targetPlayer, LinkedList<Card> deck) {
         if(checkForDefense(targetPlayer)){
+            // pridaj logiku
             System.out.println("SUPER");
         }
+
         
         super.play(currPlayer, targetPlayer, deck);
     }
@@ -25,8 +27,7 @@ public class Bang extends BrownCard{
     private boolean checkForDefense(Player targetPlayer){
         for (Card card : targetPlayer.getCards()) {
             if (card instanceof Barrel){
-                Barrel b = new Barrel(card);
-                if(b.isOnTable()){
+                if(((Barrel)card).isOnTable()){
                     return true;
                 }
             }

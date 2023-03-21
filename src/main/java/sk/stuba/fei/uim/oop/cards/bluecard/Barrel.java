@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.cards.bluecard;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import sk.stuba.fei.uim.oop.Card;
@@ -12,15 +13,11 @@ public class Barrel extends BlueCard{
         super("Barrel");
     }
 
-    public Barrel(Card card) {
-        super("Barrel");
-    }
-
     @Override
-    public void play(Player currPlayer, Player targetPlayer, LinkedList<Card> deck) {
+    public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         // TODO osetrit pridanie druhej karty barrel (v BlueCard asi)
         this.setOnTable(true);
-        super.play(currPlayer, targetPlayer, deck);
+        super.play(currPlayer, targetPlayers, deck);
     }
 
     

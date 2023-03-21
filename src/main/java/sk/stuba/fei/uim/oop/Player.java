@@ -64,4 +64,16 @@ public class Player {
         }
         return true;
     }
+
+    public String getCardsPrint(){
+        String out = "[";
+        for (int i = 0; i < this.cards.size(); i++) {
+            out += ((i+1) + " > " + this.cards.get(i));
+            if (i < this.cards.size()-1){
+                out += " | ";   
+            }
+        }
+        out += "]";
+        return out;
+    }
 }

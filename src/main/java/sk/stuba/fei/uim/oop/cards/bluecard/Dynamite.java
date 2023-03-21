@@ -2,9 +2,9 @@ package sk.stuba.fei.uim.oop.cards.bluecard;
 
 import sk.stuba.fei.uim.oop.cards.BlueCard;
 
-public class Dynamit extends BlueCard{
+public class Dynamite extends BlueCard{
 
-    public Dynamit() {
+    public Dynamite() {
         super("Dynamit");
     }
 

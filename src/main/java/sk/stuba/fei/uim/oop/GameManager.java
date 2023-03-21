@@ -5,14 +5,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import sk.stuba.fei.uim.oop.cards.bluecard.Barrel;
-import sk.stuba.fei.uim.oop.cards.bluecard.Dynamit;
-import sk.stuba.fei.uim.oop.cards.bluecard.Vazenie;
+import sk.stuba.fei.uim.oop.cards.bluecard.Dynamite;
+import sk.stuba.fei.uim.oop.cards.bluecard.Prison;
 import sk.stuba.fei.uim.oop.cards.browncard.Bang;
 import sk.stuba.fei.uim.oop.cards.browncard.CatBalou;
-import sk.stuba.fei.uim.oop.cards.browncard.Dostavnik;
-import sk.stuba.fei.uim.oop.cards.browncard.Indiani;
-import sk.stuba.fei.uim.oop.cards.browncard.Pivo;
-import sk.stuba.fei.uim.oop.cards.browncard.Vedla;
+import sk.stuba.fei.uim.oop.cards.browncard.Stagecoach;
+import sk.stuba.fei.uim.oop.cards.browncard.Indians;
+import sk.stuba.fei.uim.oop.cards.browncard.Beer;
+import sk.stuba.fei.uim.oop.cards.browncard.Missed;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class GameManager {
@@ -81,11 +81,11 @@ public class GameManager {
         }
 
         for (int i = 0; i < 15; i++) {
-            deck.add(new Vedla());
+            deck.add(new Missed());
         }
 
         for (int i = 0; i < 8; i++) {
-            deck.add(new Pivo());
+            deck.add(new Beer());
         }
 
         for (int i = 0; i < 6; i++) {
@@ -93,19 +93,19 @@ public class GameManager {
         }
 
         for (int i = 0; i < 4; i++) {
-            deck.add(new Dostavnik());
+            deck.add(new Stagecoach());
         }
 
         for (int i = 0; i < 2; i++) {
-            deck.add(new Indiani());
+            deck.add(new Indians());
             deck.add(new Barrel());
         }
 
         for (int i = 0; i < 3; i++) {
-            deck.add(new Vazenie());
+            deck.add(new Prison());
         }
 
-        deck.add(new Dynamit());
+        deck.add(new Dynamite());
 
         Collections.shuffle(deck);
 
@@ -135,11 +135,10 @@ public class GameManager {
         boolean endRound = false;
         
         while (!endRound){
-            System.out.println("\nTvoje karty: " + currPlayer.getCards());
             String [] playerInput = parseTurnInput();
             switch(playerInput[0]){
                 case "h":{
-                    currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players.get(findTarget()),this.deck);
+                    currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players, this.deck);
                     // TODO vymazat kartu hracovi po pouziti (mozno v classe Card)
                     break;
     
@@ -176,7 +175,9 @@ public class GameManager {
         try{
 
             do {
-                in = ZKlavesnice.readString("\nHraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola").split(" ");
+                
+                System.out.println("\nTvoje karty: " + currPlayer.getCardsPrint() + "\n");
+                in = ZKlavesnice.readString("Hraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola").split(" ");
                 if(in[0].equals("") && in.length == 1) return in;
             }
             while (in.length != 2 || Integer.parseInt(in[1]) > currPlayer.getCards().size() || Integer.parseInt(in[1]) < 1);
@@ -191,13 +192,6 @@ public class GameManager {
         return in;
     }
 
-    private int findTarget(){
-        int playerNum;
-        do {
-            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)");
-        } while (playerNum > players.size() || playerNum < 1);
-        
-        return playerNum-1;
-    }
+    
 
 }

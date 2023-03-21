@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public abstract class Card {
@@ -23,10 +24,9 @@ public abstract class Card {
         this.name = name;
     }
 
-    public void play(Player currPlayer, Player targetPlayer, LinkedList <Card> deck){
+    public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck){
         System.out.println("card class here");
     }
-    
     
 }
 

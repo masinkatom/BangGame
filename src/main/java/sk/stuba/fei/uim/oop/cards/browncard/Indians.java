@@ -2,9 +2,9 @@ package sk.stuba.fei.uim.oop.cards.browncard;
 
 import sk.stuba.fei.uim.oop.cards.BrownCard;
 
-public class Indiani extends BrownCard{
+public class Indians extends BrownCard{
 
-    public Indiani() {
+    public Indians() {
         super("Indiani");
     }
     

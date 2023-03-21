@@ -26,6 +26,7 @@ public abstract class Card {
 
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck){
         System.out.println("card class here");
+        currPlayer.getCards().remove(this);
     }
     
 }

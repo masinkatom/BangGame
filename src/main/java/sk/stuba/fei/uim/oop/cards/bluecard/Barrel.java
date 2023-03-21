@@ -17,7 +17,7 @@ public class Barrel extends BlueCard{
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         // TODO osetrit pridanie druhej karty barrel (v BlueCard asi)
         this.setOnTable(true);
-        super.play(currPlayer, targetPlayers, deck);
+        
     }
 
     

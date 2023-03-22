@@ -77,4 +77,13 @@ public class Player {
         out += "]";
         return out;
     }
+
+    // mode: true - increase lives, false - decrease lives
+    public void changeLives(boolean mode, int amount){
+        if (mode){
+            this.setLives(this.getLives()+amount);
+            return;
+        }
+        this.setLives(this.getLives()-amount);
+    }
 }

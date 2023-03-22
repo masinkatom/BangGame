@@ -15,8 +15,7 @@ public class Missed extends BrownCard{
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
-        // TODO Auto-generated method stub
-        super.play(currPlayer, targetPlayers, deck);
+        //super.play(currPlayer, targetPlayers, deck);
     }
 
     

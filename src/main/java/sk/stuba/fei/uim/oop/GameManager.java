@@ -141,7 +141,6 @@ public class GameManager {
                     currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players, this.deck);
                     // TODO vymazat kartu hracovi po pouziti (mozno v classe Card)
                     break;
-    
                 }
                 case "o":{
                     deck.add(currPlayer.getCards().remove(Integer.parseInt(playerInput[1])));
@@ -173,9 +172,7 @@ public class GameManager {
     private String[] parseTurnInput(){
         String [] in;
         try{
-
-            do {
-                
+            do { 
                 System.out.println("\nTvoje karty: " + currPlayer.getCardsPrint() + "\n");
                 in = ZKlavesnice.readString("Hraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola").split(" ");
                 if(in[0].equals("") && in.length == 1) return in;

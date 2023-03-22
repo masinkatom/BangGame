@@ -45,6 +45,7 @@ public class Player {
 
     public void setLives(int lives) {
         this.lives = lives;
+        System.out.println("Hrac "+ this.getName() + ", zivoty: " + this.getLives());
     }
 
     public void recieveCard(Card card){

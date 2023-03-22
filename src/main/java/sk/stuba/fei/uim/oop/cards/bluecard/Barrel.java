@@ -20,6 +20,16 @@ public class Barrel extends BlueCard{
         
     }
 
+    public boolean play(Player defender){
+        int rand = (int) Math.random()*3;
+        if (rand == 0){
+            return true;
+        }
+        return false;
+    }
+
+   
+
     
 
 

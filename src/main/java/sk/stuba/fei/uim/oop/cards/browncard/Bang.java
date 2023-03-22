@@ -17,18 +17,24 @@ public class Bang extends BrownCard {
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
-        targetPlayers = this.findTarget(targetPlayers);
+        targetPlayers = this.findTarget(currPlayer, targetPlayers);
         for (Player player : targetPlayers) {
+            boolean saved  = false;
             Barrel barrel = this.checkForBarrel(player);
+            
             if (barrel != null) {
-                barrel.play(currPlayer, targetPlayers, deck);
+                saved = barrel.play(player);    
             }
-            Missed missed = this.checkForMissed(player);
-            if (missed != null) {
-                missed.play(player, targetPlayers, deck);
-            }
-        }
 
+            if(!saved){
+                Missed missed = this.checkForMissed(player);
+                if (missed != null) {
+                    missed.throwCard(player, deck);
+                }
+                else player.setLives(player.getLives()-1);
+            }
+            
+        }
         super.play(currPlayer, targetPlayers, deck);
     }
 
@@ -54,10 +60,10 @@ public class Bang extends BrownCard {
         return null;
     }
 
-    private ArrayList<Player> findTarget(ArrayList<Player> targetPlayers) {
+    private ArrayList<Player> findTarget(Player currPlayer, ArrayList<Player> targetPlayers) {
         int playerNum;
         do {
-            System.out.println("\nHraci: " + getPlayersPrint(targetPlayers) + "\n");
+            System.out.println("\nHraci: " + getPlayersPrint(currPlayer, targetPlayers) + "\n");
             playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)");
         } while (playerNum > targetPlayers.size() || playerNum < 1);
 

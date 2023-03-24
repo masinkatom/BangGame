@@ -3,6 +3,8 @@ package sk.stuba.fei.uim.oop;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
+
 public abstract class Card {
     private String name;
 
@@ -50,6 +52,19 @@ public abstract class Card {
 
         out += "]";
         return out;
+    }
+
+    public ArrayList<Player> findTarget(Player currPlayer, ArrayList<Player> targetPlayers) {
+        int playerNum;
+        do {
+            System.out.println("\nHraci: " + getPlayersPrint(currPlayer, targetPlayers) + "\n");
+            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)");
+        } while (playerNum > targetPlayers.size() || playerNum < 1);
+
+        ArrayList<Player> retTarget = new ArrayList<>();
+        retTarget.add(targetPlayers.get(playerNum - 1));
+
+        return retTarget;
     }
     
 }

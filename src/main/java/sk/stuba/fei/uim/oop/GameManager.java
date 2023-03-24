@@ -13,6 +13,7 @@ import sk.stuba.fei.uim.oop.cards.browncard.Stagecoach;
 import sk.stuba.fei.uim.oop.cards.browncard.Indians;
 import sk.stuba.fei.uim.oop.cards.browncard.Beer;
 import sk.stuba.fei.uim.oop.cards.browncard.Missed;
+import sk.stuba.fei.uim.oop.utility.ConsoleDecorator;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class GameManager {
@@ -128,7 +129,9 @@ public class GameManager {
     }
 
     private void playTurn() {
+        ConsoleDecorator.getHorizontalLine();
         System.out.println("Na tahu je " + this.currPlayer.getName() + ".");
+        ConsoleDecorator.getHorizontalLine(); // TODO DOROBIT
         this.giveTwoCards();
         System.out.println("Boli ti pridane 2 karty");
         
@@ -142,7 +145,7 @@ public class GameManager {
                     // TODO vymazat kartu hracovi po pouziti (mozno v classe Card)
                     break;
                 }
-                case "o":{
+                case "o":{ // TODO odhadzovanie az v tretej faze
                     deck.add(currPlayer.getCards().remove(Integer.parseInt(playerInput[1])));
                     break;
                 }

@@ -15,7 +15,7 @@ public class Missed extends BrownCard{
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
-        //super.play(currPlayer, targetPlayers, deck);
+        System.out.println("Tato karta sa neda zahrat!");
     }
 
     

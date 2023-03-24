@@ -7,7 +7,6 @@ import sk.stuba.fei.uim.oop.Card;
 import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BrownCard;
 import sk.stuba.fei.uim.oop.cards.bluecard.Barrel;
-import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class Bang extends BrownCard {
 
@@ -31,7 +30,7 @@ public class Bang extends BrownCard {
                 if (missed != null) {
                     missed.throwCard(player, deck);
                 }
-                else player.setLives(player.getLives()-1);
+                else player.changeLives(false, 1);
             }
             
         }
@@ -60,17 +59,6 @@ public class Bang extends BrownCard {
         return null;
     }
 
-    private ArrayList<Player> findTarget(Player currPlayer, ArrayList<Player> targetPlayers) {
-        int playerNum;
-        do {
-            System.out.println("\nHraci: " + getPlayersPrint(currPlayer, targetPlayers) + "\n");
-            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)");
-        } while (playerNum > targetPlayers.size() || playerNum < 1);
-
-        ArrayList<Player> retTarget = new ArrayList<>();
-        retTarget.add(targetPlayers.get(playerNum - 1));
-
-        return retTarget;
-    }
+    
 
 }

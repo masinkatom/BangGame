@@ -16,6 +16,8 @@ public class Bang extends BrownCard {
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
+        super.play(currPlayer, targetPlayers, deck);
+        
         targetPlayers = this.findTarget(currPlayer, targetPlayers);
         for (Player player : targetPlayers) {
             boolean saved  = false;
@@ -34,7 +36,7 @@ public class Bang extends BrownCard {
             }
             
         }
-        super.play(currPlayer, targetPlayers, deck);
+        
     }
 
     private Barrel checkForBarrel(Player targetPlayer) {

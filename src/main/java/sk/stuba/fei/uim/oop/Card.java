@@ -58,7 +58,7 @@ public abstract class Card {
         int playerNum;
         do {
             System.out.println("\nHraci: " + getPlayersPrint(currPlayer, targetPlayers) + "\n");
-            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)");
+            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)"); // TODO Nemozes hrat na seba
         } while (playerNum > targetPlayers.size() || playerNum < 1);
 
         ArrayList<Player> retTarget = new ArrayList<>();

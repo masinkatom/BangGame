@@ -141,7 +141,9 @@ public class GameManager {
             String [] playerInput = parseTurnInput();
             switch(playerInput[0]){
                 case "h":{
+                    printDeck();
                     currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players, this.deck);
+                    printDeck();
                     // TODO vymazat kartu hracovi po pouziti (mozno v classe Card)
                     break;
                 }
@@ -190,6 +192,10 @@ public class GameManager {
         }
         
         return in;
+    }
+
+    private void printDeck(){ // TODO Vymazat
+        System.out.println("\nDECK "+deck);
     }
 
     

@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import sk.stuba.fei.uim.oop.Card;
 import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BrownCard;
-import sk.stuba.fei.uim.oop.cards.bluecard.Barrel;
 
 public class Indians extends BrownCard{
 
@@ -16,6 +15,8 @@ public class Indians extends BrownCard{
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
+        super.play(currPlayer, targetPlayers, deck);
+
         targetPlayers = findTarget(currPlayer, targetPlayers);
         for (Player player : targetPlayers) {
 
@@ -25,9 +26,8 @@ public class Indians extends BrownCard{
             }
             else player.changeLives(false, 1);
             
-            
         }
-        super.play(currPlayer, targetPlayers, deck);
+        
     }
 
     @Override

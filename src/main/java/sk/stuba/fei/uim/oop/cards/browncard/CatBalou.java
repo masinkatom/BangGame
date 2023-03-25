@@ -8,4 +8,5 @@ public class CatBalou extends BrownCard{
         super("Cat Balou");
     }
     
+    
 }

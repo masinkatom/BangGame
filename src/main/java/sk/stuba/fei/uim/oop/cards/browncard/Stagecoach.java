@@ -15,8 +15,8 @@ public class Stagecoach extends BrownCard{
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
-        currPlayer.getCards().add(deck.remove());
-        currPlayer.getCards().add(deck.remove());
+        currPlayer.recieveCard(deck.remove());
+        currPlayer.recieveCard(deck.remove());
         super.play(currPlayer, targetPlayers, deck);
     }
 

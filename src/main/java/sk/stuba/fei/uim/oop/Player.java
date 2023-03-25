@@ -2,6 +2,9 @@ package sk.stuba.fei.uim.oop;
 
 import java.util.ArrayList;
 
+import sk.stuba.fei.uim.oop.cards.BlueCard;
+import sk.stuba.fei.uim.oop.cards.BrownCard;
+
 public class Player {
     private int id;
     private String name;
@@ -45,45 +48,64 @@ public class Player {
 
     public void setLives(int lives) {
         this.lives = lives;
-        System.out.println("Hrac "+ this.getName() + ", zivoty: " + this.getLives());
+        System.out.println("Hrac " + this.getName() + ", zivoty: " + this.getLives());
     }
 
-    public void recieveCard(Card card){
+    public void recieveCard(Card card) {
         this.cards.add(card);
     }
-    
-    public boolean isAlive(){
-        if (this.getLives() < 1){
+
+    public boolean isAlive() {
+        if (this.getLives() < 1) {
             return false;
         }
         return true;
     }
 
-    public boolean checkCardAmount(){
-        if (this.cards.size() >= this.getLives()){
+    public boolean checkCardAmount() {
+        if (this.cards.size() >= this.getLives()) {
             return false;
         }
         return true;
     }
 
-    public String getCardsPrint(){
+    // mode: true - print all cards, false - hide cards which are not on table
+    public String getCardsPrint(boolean mode) {
         String out = "[";
-        for (int i = 0; i < this.cards.size(); i++) {
-            out += ((i+1) + " > " + this.cards.get(i));
-            if (i < this.cards.size()-1){
-                out += " | ";   
+        int i = 0;
+
+        for (Card card : this.cards) {
+            if (!mode && card instanceof BrownCard){
+                out += ((i + 1) + " > " + "<Karta na ruke>");
             }
+
+            else if (!mode && card instanceof BlueCard){
+                if (!((BlueCard) card).isOnTable()){
+                    out += ((i + 1) + " > " + "<Karta na ruke>");
+                }
+            }
+
+            else out += ((i + 1) + " > " + card);
+            
+            if (i < this.cards.size() - 1) {
+                out += " | ";
+            }
+            i++;
         }
+
         out += "]";
         return out;
     }
 
     // mode: true - increase lives, false - decrease lives
-    public void changeLives(boolean mode, int amount){
-        if (mode){
-            this.setLives(this.getLives()+amount);
-            return;
+    public void changeLives(boolean mode, int amount) {
+        if (this.isAlive()) {
+            if (mode) {
+                this.setLives(this.getLives() + amount);
+                return;
+            }
+            this.setLives(this.getLives() - amount);
         }
-        this.setLives(this.getLives()-amount);
+
     }
 }

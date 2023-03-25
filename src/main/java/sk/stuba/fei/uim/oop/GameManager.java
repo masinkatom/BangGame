@@ -178,7 +178,7 @@ public class GameManager {
         String [] in;
         try{
             do { 
-                System.out.println("\nTvoje karty: " + currPlayer.getCardsPrint() + "\n");
+                System.out.println("\nTvoje karty: " + currPlayer.getCardsPrint(true) + "\n");
                 in = ZKlavesnice.readString("Hraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola").split(" ");
                 if(in[0].equals("") && in.length == 1) return in;
             }

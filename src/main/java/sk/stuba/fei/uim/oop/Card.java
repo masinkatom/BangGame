@@ -35,35 +35,38 @@ public abstract class Card {
         deck.add(this);
     }
 
-    public String getPlayersPrint(Player currPlayer, ArrayList<Player> targetPlayers){
+    public String getPlayersPrint(ArrayList<Player> targetPlayers){
         String out = "[";
         int i = 0;
         for (Player player : targetPlayers) {
-            if (player != currPlayer){
-                out += ((i+1) + " > " + player.getName());
-                out += (", zivoty: " + player.getLives());
-                if (i < targetPlayers.size()-1){
-                    out += " | ";   
-                }
-            }
             
+            out += ((player.getId()+1) + " > " + player.getName());
+            out += (", zivoty: " + player.getLives());
+            if (i < targetPlayers.size()-1){
+                out += " | ";   
+            }
             i++;
         }
-
         out += "]";
         return out;
     }
 
     public ArrayList<Player> findTarget(Player currPlayer, ArrayList<Player> targetPlayers) {
         int playerNum;
+        ArrayList<Player> copyTargPlayers = new ArrayList<>();
+        copyTargPlayers.addAll(targetPlayers);
+        copyTargPlayers.remove(currPlayer);
+        
         do {
-            System.out.println("\nHraci: " + getPlayersPrint(currPlayer, targetPlayers) + "\n");
+            System.out.println("\nHraci: " + getPlayersPrint(copyTargPlayers) + "\n");
             playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)"); // TODO Nemozes hrat na seba
-        } while (playerNum > targetPlayers.size() || playerNum < 1);
-
+            // TODO minus pocethracov mrtvych a currplayer
+        } while (playerNum > targetPlayers.size() || playerNum < 1 || playerNum - 1 == currPlayer.getId());
+        
         ArrayList<Player> retTarget = new ArrayList<>();
         retTarget.add(targetPlayers.get(playerNum - 1));
-
+        System.out.println("Zvolil si hraca " + targetPlayers.get(playerNum - 1).getName()); // TODO DELETE
+        
         return retTarget;
     }
     

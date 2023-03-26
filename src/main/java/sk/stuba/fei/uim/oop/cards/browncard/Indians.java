@@ -24,7 +24,12 @@ public class Indians extends BrownCard{
             if (banger != null) {
                 banger.throwCard(player, deck);
             }
-            else player.changeLives(false, 1);
+            else {
+                boolean dead = player.changeLives(false, 1);
+                if(dead){
+                    kickPLayer(player, targetPlayers, deck);
+                }
+            }
             
         }
         

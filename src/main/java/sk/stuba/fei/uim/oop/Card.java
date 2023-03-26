@@ -30,7 +30,6 @@ public abstract class Card {
     }
 
     public void throwCard(Player player, LinkedList<Card> deck){
-        System.out.println("Bola vyhodena karta " + this.getName());
         player.removeCard(this);
         deck.add(this);
     }
@@ -40,7 +39,7 @@ public abstract class Card {
         int i = 0;
         for (Player player : targetPlayers) {
             
-            out += ((player.getId()+1) + " > " + player.getName());
+            out += ((i+1) + " > " + player.getName());
             out += (", zivoty: " + player.getLives());
             if (i < targetPlayers.size()-1){
                 out += " | ";   
@@ -59,11 +58,17 @@ public abstract class Card {
         
         do {
             System.out.println("\nHraci: " + getPlayersPrint(copyTargPlayers) + "\n");
-            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)"); // TODO Nemozes hrat na seba
-            // TODO minus pocethracov mrtvych a currplayer
-        } while (playerNum > targetPlayers.size() || playerNum < 1 || playerNum - 1 == currPlayer.getId());
+            playerNum = ZKlavesnice.readInt("Na koho chces zahrat tuto kartu? (zadaj cislo hraca)");
+        } while (playerNum > copyTargPlayers.size() || playerNum < 1 );
         
-        return targetPlayers.get(playerNum - 1);
+        return copyTargPlayers.get(playerNum - 1);
+    }
+
+    public void kickPLayer(Player player, ArrayList<Player> targetPlayers, LinkedList<Card> deck){
+        for (Card card : player.getCards()) {
+            card.throwCard(player, deck);
+        }
+        targetPlayers.remove(player);
     }
     
 }

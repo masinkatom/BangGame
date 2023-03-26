@@ -49,7 +49,6 @@ public class Player {
 
     public void setLives(int lives) {
         this.lives = lives;
-        System.out.println("Hrac " + this.getName() + ", zivoty: " + this.getLives());
     }
 
     public void recieveCard(Card card) {
@@ -110,18 +109,24 @@ public class Player {
     /**
      * @param mode true - increase lives, false - decrease lives
      */
-    public void changeLives(boolean mode, int amount) {
+    public boolean changeLives(boolean mode, int amount) {
         if (this.isAlive()) {
             if (mode) {
                 this.setLives(this.getLives() + amount);
-                return;
+                System.out.println("Hrac " + this.getName() + ", zivoty: " + this.getLives());
+                return false;
             }
             this.setLives(this.getLives() - amount);
-            if(this.getLives() < 0){
+            System.out.println("Hrac " + this.getName() + ", zivoty: " + this.getLives());
+
+            if(this.getLives() <= 0){
                 this.setLives(0);
-                System.out.println("\n! Hrac " + this.getName() + "zomrel :( !\n");
+                System.out.println("\n! Hrac '" + this.getName() + "' zomrel :( !");
+                return true;
             }
         }
+        return false;
+        
 
     }
 

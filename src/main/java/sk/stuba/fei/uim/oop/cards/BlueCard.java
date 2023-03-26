@@ -38,5 +38,13 @@ public abstract class BlueCard extends Card{
 
     public abstract Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers);
     
+    public boolean alreadyOnTable(Player player){
+        for (Card card : player.getCardsOnTable()) {
+            if (card.getName().equals(this.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
     
 }

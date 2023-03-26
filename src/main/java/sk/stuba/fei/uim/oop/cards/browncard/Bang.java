@@ -31,7 +31,13 @@ public class Bang extends BrownCard {
             if (missed != null) {
                 missed.throwCard(target, deck);
             }
-            else target.changeLives(false, 1);
+            else{
+                boolean dead = target.changeLives(false, 1);
+                if(dead){
+                    kickPLayer(target, targetPlayers, deck);
+                }
+            } 
+            
         }
         
     }

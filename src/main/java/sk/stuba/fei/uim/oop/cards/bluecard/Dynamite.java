@@ -27,8 +27,12 @@ public class Dynamite extends BlueCard{
     public Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
         int random = (int) (Math.random()*7);
         if (random == 0){
-            player.changeLives(false, 3);
             this.throwCard(player, deck);
+            
+            boolean dead = player.changeLives(false, 3);
+            if(dead){
+                kickPLayer(player, targetPlayers, deck);
+            }
             return player;
         }
         player.removeCard(this);

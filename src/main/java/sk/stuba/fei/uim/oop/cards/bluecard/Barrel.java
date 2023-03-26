@@ -15,11 +15,16 @@ public class Barrel extends BlueCard{
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
-        // TODO osetrit pridanie druhej karty barrel (v BlueCard asi)
-        if (!this.isOnTable()){
-            this.setOnTable(true);
+        if (this.alreadyOnTable(currPlayer)){
+            System.out.println("Kartu tohto typu uz mas na stole!");
         }
-        else System.out.println("Tato karta uz je na stole!");
+        else{
+            if (!this.isOnTable()){
+                this.setOnTable(true);
+            }
+            else System.out.println("Tato karta uz je na stole!");
+        }
+        
         
     }
 

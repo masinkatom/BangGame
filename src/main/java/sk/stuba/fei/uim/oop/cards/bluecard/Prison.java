@@ -17,7 +17,10 @@ public class Prison extends BlueCard{
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         
         Player target = findTarget(currPlayer, targetPlayers);
-        // TODO osetrit pridanie na viac kariet prison
+        if (this.alreadyOnTable(target)){
+            System.out.println("Tento hrac uz ma jedno vazenie na stole!");
+            return;
+        }
         currPlayer.removeCard(this);
         this.setOnTable(true);
         target.recieveCard(this);

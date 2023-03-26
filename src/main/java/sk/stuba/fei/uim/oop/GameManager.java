@@ -56,11 +56,18 @@ public class GameManager {
             this.playTurn();
             currPlayer = this.nextPlayer();
 
+            if (players.size() < 2){
+                break;
+            }
+
             this.getHorizontalLine();
             ZKlavesnice.readString("STLAC NEJAKU KLAVESU a ENTER PRE ZACATIE KOLA");
             this.getHorizontalLine();
         }
-        // TODO VITAZOM HRY JE ...
+        this.getHorizontalLine();
+        System.out.println("VITAZOM HRY SA STAVA '" + currPlayer.getName() + "', gratulujem!");
+        this.getHorizontalLine();
+        System.exit(0);
 
     }
 
@@ -122,8 +129,8 @@ public class GameManager {
     private void playTurn() {
         Player currP = this.currPlayer;
         this.getHorizontalLine();
-        System.out.println("Na tahu je " + this.currPlayer.getName() + ".");
-        this.getHorizontalLine(); // TODO DOROBIT
+        System.out.println("Na tahu je " + this.currPlayer.getName() + ", zivoty: " + this.currPlayer.getLives());
+        this.getHorizontalLine();
 
         this.playOnTable();
 
@@ -135,22 +142,25 @@ public class GameManager {
         System.out.println("Boli ti pridane 2 karty");
 
         boolean endRound = false;
+        boolean phase = false;
 
         while (!endRound && currPlayer.isAlive() && players.size() > 1) {
-            String[] playerInput = parseTurnInput();
+            String[] playerInput = parseTurnInput(phase);
             switch (playerInput[0]) {
                 case "h": {
                     currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players,
                             this.deck);
                     break;
                 }
-                case "o": { // TODO odhadzovanie az v tretej faze
+                case "o": {
                     deck.add(currPlayer.getCards().remove(Integer.parseInt(playerInput[1])));
                     break;
                 }
                 case "": {
                     if (!currPlayer.checkCardAmount()) {
-                        System.out.println("Pocet tvojich kariet prevysuje tvoj pocet zivotov!\n\tZahod nejake karty!");
+                        this.getHorizontalLine();
+                        System.out.println("! Pocet tvojich kariet prevysuje tvoj pocet zivotov !\n\tZahod nejake karty! ");
+                        phase = true;
                         break;
                     }
                     this.getHorizontalLine();
@@ -162,7 +172,6 @@ public class GameManager {
                 default: {
                     break;
                 }
-                // TODO Alex Tapsak virginia
             }
         }
     }
@@ -174,18 +183,35 @@ public class GameManager {
 
     }
 
-    private String[] parseTurnInput() {
-        String[] in;
+    private String[] parseTurnInput(boolean phase) {
+        String[] in = new String[2];
+        String in2 = "";
         try {
             do {
                 this.getHorizontalLine();
                 System.out.println("Tvoje karty: " + currPlayer.getCardsPrint(true));
                 this.getHorizontalLine();
+                if (!phase){
+                    in2 = ZKlavesnice.readString("Hraj n-tu kartu (napr. 2)\nEnter - Koniec kola");
+                    if (in2.equals("")) {
+                        in[0] = "";
+                        in[1] = "0";
+                        return in;
+                    }
+                    in[0] = "h";
+                    in[1] = in2.toString();
+                }
+                else {
+                    in2 = ZKlavesnice.readString("Odhod n-tu kartu (napr. 1)\nEnter - Koniec kola");
+                    if (in2.equals("")) {
+                        in[0] = "";
+                        in[1] = "0";
+                        return in;
+                    }
+                    in[0] = "o";
+                    in[1] = in2.toString();
+                }
 
-                in = ZKlavesnice.readString("Hraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola")
-                        .split(" ");
-                if (in[0].equals("") && in.length == 1)
-                    return in;
             } while (in.length != 2 || Integer.parseInt(in[1]) > currPlayer.getCards().size()
                     || Integer.parseInt(in[1]) < 1);
 
@@ -193,7 +219,7 @@ public class GameManager {
 
         } catch (NumberFormatException e) {
             System.out.println("Zly vstup, zadavaj este raz");
-            in = parseTurnInput();
+            in = parseTurnInput(phase);
         }
 
         return in;
@@ -205,7 +231,7 @@ public class GameManager {
 
             this.currPlayer = ((BlueCard) card).play(this.currPlayer, deck, players);
 
-        } // TODO DOROBIT
+        }
     }
 
     private void getHorizontalLine(){

@@ -18,23 +18,20 @@ public class Bang extends BrownCard {
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         super.play(currPlayer, targetPlayers, deck);
         
-        targetPlayers = this.findTarget(currPlayer, targetPlayers);
-        for (Player player : targetPlayers) {
-            boolean saved  = false;
-            Barrel barrel = this.checkForBarrel(player);
-            
-            if (barrel != null) {
-                saved = barrel.play(player);    
-            }
+        Player target = findTarget(currPlayer, targetPlayers);
+        int saved = 0;
+        Barrel barrel = this.checkForBarrel(target);
+        
+        if (barrel != null) {
+            saved = barrel.play(target, deck, targetPlayers);
+        }
 
-            if(!saved){
-                Missed missed = this.checkForMissed(player);
-                if (missed != null) {
-                    missed.throwCard(player, deck);
-                }
-                else player.changeLives(false, 1);
+        if(saved == 0){
+            Missed missed = this.checkForMissed(target);
+            if (missed != null) {
+                missed.throwCard(target, deck);
             }
-            
+            else target.changeLives(false, 1);
         }
         
     }

@@ -1,5 +1,10 @@
 package sk.stuba.fei.uim.oop.cards.bluecard;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import sk.stuba.fei.uim.oop.Card;
+import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BlueCard;
 
 public class Dynamite extends BlueCard{
@@ -7,6 +12,32 @@ public class Dynamite extends BlueCard{
     public Dynamite() {
         super("Dynamit");
     }
+
+
+    @Override
+    public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
+        if(!isOnTable()){
+            this.setOnTable(true);
+        }
+        else System.out.println("Tato karta uz je na stole!");
+        
+    }
+
+
+    @Override
+    public int play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
+        int random = (int) (Math.random()*7);
+        if (random == 0){
+            player.changeLives(false, 3);
+            this.throwCard(player, deck);
+            return 0;
+        }
+        return 3;
+    }
+
+    
+
+    
 
     
 }

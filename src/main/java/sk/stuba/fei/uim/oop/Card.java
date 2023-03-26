@@ -31,7 +31,7 @@ public abstract class Card {
 
     public void throwCard(Player player, LinkedList<Card> deck){
         System.out.println("Bola vyhodena karta " + this.getName());
-        player.getCards().remove(this);
+        player.removeCard(this);
         deck.add(this);
     }
 
@@ -51,7 +51,7 @@ public abstract class Card {
         return out;
     }
 
-    public ArrayList<Player> findTarget(Player currPlayer, ArrayList<Player> targetPlayers) {
+    public Player findTarget(Player currPlayer, ArrayList<Player> targetPlayers) {
         int playerNum;
         ArrayList<Player> copyTargPlayers = new ArrayList<>();
         copyTargPlayers.addAll(targetPlayers);
@@ -63,11 +63,7 @@ public abstract class Card {
             // TODO minus pocethracov mrtvych a currplayer
         } while (playerNum > targetPlayers.size() || playerNum < 1 || playerNum - 1 == currPlayer.getId());
         
-        ArrayList<Player> retTarget = new ArrayList<>();
-        retTarget.add(targetPlayers.get(playerNum - 1));
-        System.out.println("Zvolil si hraca " + targetPlayers.get(playerNum - 1).getName()); // TODO DELETE
-        
-        return retTarget;
+        return targetPlayers.get(playerNum - 1);
     }
     
 }

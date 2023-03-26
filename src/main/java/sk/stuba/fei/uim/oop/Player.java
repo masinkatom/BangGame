@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import sk.stuba.fei.uim.oop.cards.BlueCard;
 import sk.stuba.fei.uim.oop.cards.BrownCard;
@@ -55,6 +56,10 @@ public class Player {
         this.cards.add(card);
     }
 
+    public void removeCard(Card card){
+        this.cards.remove(card);  
+    }
+
     public boolean isAlive() {
         if (this.getLives() < 1) {
             return false;
@@ -69,7 +74,9 @@ public class Player {
         return true;
     }
 
-    // mode: true - print all cards, false - hide cards which are not on table
+    /**
+     * @param mode true - print all cards, false - hide cards which are not on table
+     */
     public String getCardsPrint(boolean mode) {
         String out = "[";
         int i = 0;
@@ -97,7 +104,9 @@ public class Player {
         return out;
     }
 
-    // mode: true - increase lives, false - decrease lives
+    /**
+     * @param mode true - increase lives, false - decrease lives
+     */
     public void changeLives(boolean mode, int amount) {
         if (this.isAlive()) {
             if (mode) {
@@ -107,5 +116,24 @@ public class Player {
             this.setLives(this.getLives() - amount);
         }
 
+    }
+
+    public ArrayList<Card> getCardsOnTable(){
+        ArrayList<Card> cardsOnTable = new ArrayList<>();
+        for (Card card : this.cards) {
+            if (card instanceof BlueCard){
+                if (((BlueCard)card).isOnTable()){
+                    cardsOnTable.add(card);
+                }
+            }
+        }
+        cardsOnTable.sort(new Comparator<Card>() {
+            @Override
+            public int compare(Card o1, Card o2) {
+                return o1.getName().compareTo(o2.getName());
+            };
+        });
+
+        return cardsOnTable;
     }
 }

@@ -16,8 +16,25 @@ public class Prison extends BlueCard{
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         
-        super.play(currPlayer, targetPlayers, deck);
+        Player target = findTarget(currPlayer, targetPlayers);
+        // TODO osetrit pridanie na viac kariet prison
+        currPlayer.removeCard(this);
+        this.setOnTable(true);
+        target.recieveCard(this);
+
     }
+
+    @Override
+    public int play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
+        this.throwCard(player, deck);
+        int random = (int) (Math.random()*3);
+        if (random == 0){
+            return 0;
+        }
+        return 2;
+    }
+
+    
     
     
 

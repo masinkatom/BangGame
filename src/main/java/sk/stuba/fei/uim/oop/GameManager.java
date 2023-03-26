@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import sk.stuba.fei.uim.oop.cards.BlueCard;
 import sk.stuba.fei.uim.oop.cards.bluecard.Barrel;
 import sk.stuba.fei.uim.oop.cards.bluecard.Dynamite;
 import sk.stuba.fei.uim.oop.cards.bluecard.Prison;
@@ -58,10 +59,11 @@ public class GameManager {
         this.giveCards();
 
         currPlayer = players.get(0);
-        while (players.size() > 1) {    // TODO UPRAVIT UKONCOVACIU PODMIENKU
+        while (players.size() > 1) { // TODO UPRAVIT UKONCOVACIU PODMIENKU
             if (!currPlayer.isAlive()) {
-               // TODO vratit karty do odhadzov. balicka v pripade smrti - a vyhodit hraca z arraylistu
-               currPlayer = this.nextPlayer();
+                // TODO vratit karty do odhadzov. balicka v pripade smrti - a vyhodit hraca z
+                // arraylistu
+                currPlayer = this.nextPlayer();
             }
             this.playTurn();
             currPlayer = this.nextPlayer();
@@ -69,13 +71,13 @@ public class GameManager {
             // TODO vymazat toto
             ZKlavesnice.readString("Cakam na input");
         }
+        // TODO VITAZOM HRY JE ...
 
     }
 
-
     private void initDeck() {
         this.deck = new LinkedList<Card>() {
-            
+
         };
         for (int i = 0; i < 30; i++) {
             deck.add(new Bang());
@@ -125,33 +127,44 @@ public class GameManager {
             return players.get(0);
         }
         return players.get(this.currPlayer.getId() + 1);
-        
+
+    }
+
+    private Player prevPlayer() {
+        if (this.currPlayer.getId() <= 0) {
+            return players.get(players.size() - 1);
+        }
+        return players.get(this.currPlayer.getId() - 1);
     }
 
     private void playTurn() {
         ConsoleDecorator.getHorizontalLine();
         System.out.println("Na tahu je " + this.currPlayer.getName() + ".");
         ConsoleDecorator.getHorizontalLine(); // TODO DOROBIT
+
+        this.playOnTable();
+
         this.giveTwoCards();
         System.out.println("Boli ti pridane 2 karty");
-        
+
         boolean endRound = false;
-        
-        while (!endRound){
-            String [] playerInput = parseTurnInput();
-            switch(playerInput[0]){
-                case "h":{
+
+        while (!endRound && currPlayer.isAlive()) {
+            String[] playerInput = parseTurnInput();
+            switch (playerInput[0]) {
+                case "h": {
                     printDeck();
-                    currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players, this.deck);
+                    currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players,
+                            this.deck);
                     printDeck();
                     // TODO vymazat kartu hracovi po pouziti (mozno v classe Card)
                     break;
                 }
-                case "o":{ // TODO odhadzovanie az v tretej faze
+                case "o": { // TODO odhadzovanie az v tretej faze
                     deck.add(currPlayer.getCards().remove(Integer.parseInt(playerInput[1])));
                     break;
                 }
-                case "":{
+                case "": {
                     System.out.println("Koniec kola");
                     endRound = true;
                     break;
@@ -159,45 +172,61 @@ public class GameManager {
                 default: {
                     break;
                 }
-                
-                //Alex Tapsak virginia
+
+                // TODO Alex Tapsak virginia
             }
 
         }
 
     }
 
-    private void giveTwoCards(){
+    private void giveTwoCards() {
         for (int i = 0; i < 2; i++) {
             currPlayer.recieveCard(deck.remove());
         }
-        
+
     }
 
-    private String[] parseTurnInput(){
-        String [] in;
-        try{
-            do { 
+    private String[] parseTurnInput() {
+        String[] in;
+        try {
+            do {
                 System.out.println("\nTvoje karty: " + currPlayer.getCardsPrint(true) + "\n");
-                in = ZKlavesnice.readString("Hraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola").split(" ");
-                if(in[0].equals("") && in.length == 1) return in;
-            }
-            while (in.length != 2 || Integer.parseInt(in[1]) > currPlayer.getCards().size() || Integer.parseInt(in[1]) < 1);
+                in = ZKlavesnice.readString("Hraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola")
+                        .split(" ");
+                if (in[0].equals("") && in.length == 1)
+                    return in;
+            } while (in.length != 2 || Integer.parseInt(in[1]) > currPlayer.getCards().size()
+                    || Integer.parseInt(in[1]) < 1);
 
-            in[1] = Integer.toString(Integer.parseInt(in[1])-1);
+            in[1] = Integer.toString(Integer.parseInt(in[1]) - 1);
 
-        } catch (NumberFormatException e){
-           System.out.println("Zly vstup, zadavaj este raz");
-           in = parseTurnInput();
+        } catch (NumberFormatException e) {
+            System.out.println("Zly vstup, zadavaj este raz");
+            in = parseTurnInput();
         }
-        
+
         return in;
     }
 
-    private void printDeck(){ // TODO Vymazat
-        System.out.println("\nDECK "+deck);
+    private void printDeck() { // TODO Vymazat
+        System.out.println("\nDECK " + deck);
     }
 
-    
+    private void playOnTable(){
+        
+        for (Card card : this.currPlayer.getCardsOnTable()) {
+
+            //((BlueCard) card).play(currPlayer, deck, players);
+
+            int res = ((BlueCard) card).play(currPlayer, deck, players);
+            if(res == 2){
+                currPlayer = this.nextPlayer();
+            }
+            if(res == 3){
+                this.prevPlayer().recieveCard(card);
+            }
+        }// TODO DOROBIT
+    }
 
 }

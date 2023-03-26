@@ -16,18 +16,25 @@ public class Barrel extends BlueCard{
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         // TODO osetrit pridanie druhej karty barrel (v BlueCard asi)
-        
-        this.setOnTable(true);
+        if (!this.isOnTable()){
+            this.setOnTable(true);
+        }
+        else System.out.println("Tato karta uz je na stole!");
         
     }
 
-    public boolean play(Player defender){
-        int rand = (int) Math.random()*3;
+    @Override
+    public int play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
+        int rand = (int) (Math.random()*3);
         if (rand == 0){
-            return true;
+            return 1;
         }
-        return false;
+        return 0;
     }
+
+
+
+    
 
    
 

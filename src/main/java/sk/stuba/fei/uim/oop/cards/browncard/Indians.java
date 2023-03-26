@@ -17,7 +17,7 @@ public class Indians extends BrownCard{
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         super.play(currPlayer, targetPlayers, deck);
 
-        targetPlayers = findTarget(currPlayer, targetPlayers);
+        targetPlayers = findTargets(currPlayer, targetPlayers);
         for (Player player : targetPlayers) {
 
             Bang banger = this.checkForBang(player);
@@ -30,10 +30,11 @@ public class Indians extends BrownCard{
         
     }
 
-    @Override
-    public ArrayList<Player> findTarget(Player currPlayer, ArrayList<Player> targetPlayers) {
-        targetPlayers.remove(currPlayer);
-        return targetPlayers;
+    public ArrayList<Player> findTargets(Player currPlayer, ArrayList<Player> targetPlayers) {
+        ArrayList <Player> cpyTargetPlayers = new ArrayList<>();
+        cpyTargetPlayers.addAll(targetPlayers);
+        cpyTargetPlayers.remove(currPlayer);
+        return cpyTargetPlayers;
     }
 
     private Bang checkForBang(Player targetPlayer) {

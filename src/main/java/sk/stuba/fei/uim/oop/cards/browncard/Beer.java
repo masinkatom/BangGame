@@ -19,9 +19,4 @@ public class Beer extends BrownCard {
         super.play(currPlayer, targetPlayers, deck);
     }
 
-    
-
-    
-    
-    
 }

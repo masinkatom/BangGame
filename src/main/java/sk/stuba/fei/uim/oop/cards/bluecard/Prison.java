@@ -7,7 +7,7 @@ import sk.stuba.fei.uim.oop.Card;
 import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BlueCard;
 
-public class Prison extends BlueCard{
+public class Prison extends BlueCard {
 
     public Prison() {
         super("Vazenie");
@@ -15,9 +15,9 @@ public class Prison extends BlueCard{
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
-        
+
         Player target = findTarget(currPlayer, targetPlayers);
-        if (this.alreadyOnTable(target)){
+        if (this.alreadyOnTable(target)) {
             System.out.println("Tento hrac uz ma jedno vazenie na stole!");
             return;
         }
@@ -30,8 +30,8 @@ public class Prison extends BlueCard{
     @Override
     public Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
         this.throwCard(player, deck);
-        int random = (int) (Math.random()*3);
-        if (random == 0){
+        int random = (int) (Math.random() * 3);
+        if (random == 0) {
             return player;
         }
         player = nextPlayer(player, targetPlayers);

@@ -7,7 +7,7 @@ import sk.stuba.fei.uim.oop.Card;
 import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BlueCard;
 
-public class Barrel extends BlueCard{
+public class Barrel extends BlueCard {
 
     public Barrel() {
         super("Barrel");
@@ -15,22 +15,20 @@ public class Barrel extends BlueCard{
 
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
-        if (this.alreadyOnTable(currPlayer)){
+        if (this.alreadyOnTable(currPlayer)) {
             System.out.println("Kartu tohto typu uz mas na stole!");
-        }
-        else{
-            if (!this.isOnTable()){
+        } else {
+            if (!this.isOnTable()) {
                 this.setOnTable(true);
-            }
-            else System.out.println("Tato karta uz je na stole!");
+            } else
+                System.out.println("Tato karta uz je na stole!");
         }
-        
-        
+
     }
 
-    public boolean play(){
-        int rand = (int) (Math.random()*3);
-        if (rand == 0){
+    public boolean play() {
+        int rand = (int) (Math.random() * 3);
+        if (rand == 0) {
             return true;
         }
         return false;
@@ -40,16 +38,5 @@ public class Barrel extends BlueCard{
     public Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
         return player;
     }
-    
 
-
-
-    
-
-   
-
-    
-
-
-    
 }

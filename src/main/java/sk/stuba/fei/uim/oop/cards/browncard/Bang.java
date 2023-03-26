@@ -17,29 +17,28 @@ public class Bang extends BrownCard {
     @Override
     public void play(Player currPlayer, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
         super.play(currPlayer, targetPlayers, deck);
-        
+
         Player target = findTarget(currPlayer, targetPlayers);
         boolean saved = false;
         Barrel barrel = this.checkForBarrel(target);
-        
+
         if (barrel != null) {
             saved = barrel.play();
         }
 
-        if(!saved){
+        if (!saved) {
             Missed missed = this.checkForMissed(target);
             if (missed != null) {
                 missed.throwCard(target, deck);
-            }
-            else{
+            } else {
                 boolean dead = target.changeLives(false, 1);
-                if(dead){
-                    kickPLayer(target, targetPlayers, deck);
+                if (dead) {
+                    target.kickPLayer(target, targetPlayers, deck);
                 }
-            } 
-            
+            }
+
         }
-        
+
     }
 
     private Barrel checkForBarrel(Player targetPlayer) {
@@ -63,7 +62,5 @@ public class Bang extends BrownCard {
 
         return null;
     }
-
-    
 
 }

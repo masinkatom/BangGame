@@ -56,12 +56,12 @@ public class GameManager {
             this.playTurn();
             currPlayer = this.nextPlayer();
 
-            if (players.size() < 2){
+            if (players.size() < 2) {
                 break;
             }
 
             this.getHorizontalLine();
-            ZKlavesnice.readString("STLAC NEJAKU KLAVESU a ENTER PRE ZACATIE KOLA");
+            ZKlavesnice.readString("ZADAJ NEJAKY VSTUP PRE ZACATIE TAHU!");
             this.getHorizontalLine();
         }
         this.getHorizontalLine();
@@ -159,7 +159,8 @@ public class GameManager {
                 case "": {
                     if (!currPlayer.checkCardAmount()) {
                         this.getHorizontalLine();
-                        System.out.println("! Pocet tvojich kariet prevysuje tvoj pocet zivotov !\n\tZahod nejake karty! ");
+                        System.out.println(
+                                "! Pocet tvojich kariet prevysuje tvoj pocet zivotov !\n\tZahod nejake karty! ");
                         phase = true;
                         break;
                     }
@@ -191,7 +192,7 @@ public class GameManager {
                 this.getHorizontalLine();
                 System.out.println("Tvoje karty: " + currPlayer.getCardsPrint(true));
                 this.getHorizontalLine();
-                if (!phase){
+                if (!phase) {
                     in2 = ZKlavesnice.readString("Hraj n-tu kartu (napr. 2)\nEnter - Koniec kola");
                     if (in2.equals("")) {
                         in[0] = "";
@@ -200,8 +201,7 @@ public class GameManager {
                     }
                     in[0] = "h";
                     in[1] = in2.toString();
-                }
-                else {
+                } else {
                     in2 = ZKlavesnice.readString("Odhod n-tu kartu (napr. 1)\nEnter - Koniec kola");
                     if (in2.equals("")) {
                         in[0] = "";
@@ -212,8 +212,7 @@ public class GameManager {
                     in[1] = in2.toString();
                 }
 
-            } while (in.length != 2 || Integer.parseInt(in[1]) > currPlayer.getCards().size()
-                    || Integer.parseInt(in[1]) < 1);
+            } while (Integer.parseInt(in[1]) > currPlayer.getCards().size() || Integer.parseInt(in[1]) < 1);
 
             in[1] = Integer.toString(Integer.parseInt(in[1]) - 1);
 
@@ -234,7 +233,7 @@ public class GameManager {
         }
     }
 
-    private void getHorizontalLine(){
+    private void getHorizontalLine() {
         System.out.println("\n--------------------------------\n");
     }
 

@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 import sk.stuba.fei.uim.oop.cards.BlueCard;
 import sk.stuba.fei.uim.oop.cards.BrownCard;
@@ -16,23 +17,15 @@ public class Player {
         this.id = id;
         this.name = name;
         this.cards = new ArrayList<>();
-        this.lives = 1;
+        this.lives = 4;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public ArrayList<Card> getCards() {
@@ -55,8 +48,8 @@ public class Player {
         this.cards.add(card);
     }
 
-    public void removeCard(Card card){
-        this.cards.remove(card);  
+    public void removeCard(Card card) {
+        this.cards.remove(card);
     }
 
     public boolean isAlive() {
@@ -84,18 +77,19 @@ public class Player {
         int i = 0;
 
         for (Card card : this.cards) {
-            if (!mode && card instanceof BrownCard){
+            if (!mode && card instanceof BrownCard) {
                 out += ((i + 1) + " > " + "<Karta na ruke>");
             }
 
-            else if (!mode && card instanceof BlueCard){
-                if (!((BlueCard) card).isOnTable()){
+            else if (!mode && card instanceof BlueCard) {
+                if (!((BlueCard) card).isOnTable()) {
                     out += ((i + 1) + " > " + "<Karta na ruke>");
                 }
             }
 
-            else out += ((i + 1) + " > " + card);
-            
+            else
+                out += ((i + 1) + " > " + card);
+
             if (i < this.cards.size() - 1) {
                 out += " | ";
             }
@@ -119,22 +113,21 @@ public class Player {
             this.setLives(this.getLives() - amount);
             System.out.println("Hrac " + this.getName() + ", zivoty: " + this.getLives());
 
-            if(this.getLives() <= 0){
+            if (this.getLives() <= 0) {
                 this.setLives(0);
                 System.out.println("\n! Hrac '" + this.getName() + "' zomrel :( !");
                 return true;
             }
         }
         return false;
-        
 
     }
 
-    public ArrayList<Card> getCardsOnTable(){
+    public ArrayList<Card> getCardsOnTable() {
         ArrayList<Card> cardsOnTable = new ArrayList<>();
         for (Card card : this.cards) {
-            if (card instanceof BlueCard){
-                if (((BlueCard)card).isOnTable()){
+            if (card instanceof BlueCard) {
+                if (((BlueCard) card).isOnTable()) {
                     cardsOnTable.add(card);
                 }
             }
@@ -147,6 +140,17 @@ public class Player {
         });
 
         return cardsOnTable;
+    }
+
+    public void kickPLayer(Player player, ArrayList<Player> targetPlayers, LinkedList<Card> deck) {
+        ArrayList<Card> cards = player.getCards();
+        /*for (Card card : cards) {
+            card.throwCard(player, deck);
+        }*/
+        for (int i = 0; i < cards.size(); i++) {
+            cards.get(i).throwCard(player, deck);
+        }
+        targetPlayers.remove(player);
     }
 
 }

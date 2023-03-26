@@ -7,7 +7,7 @@ import sk.stuba.fei.uim.oop.Card;
 import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BrownCard;
 
-public class Stagecoach extends BrownCard{
+public class Stagecoach extends BrownCard {
 
     public Stagecoach() {
         super("Dostavnik");
@@ -20,6 +20,4 @@ public class Stagecoach extends BrownCard{
         super.play(currPlayer, targetPlayers, deck);
     }
 
-    
-    
 }

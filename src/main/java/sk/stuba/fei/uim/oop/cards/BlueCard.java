@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import sk.stuba.fei.uim.oop.Card;
 import sk.stuba.fei.uim.oop.Player;
 
-public abstract class BlueCard extends Card{
+public abstract class BlueCard extends Card {
     private boolean onTable;
 
     public BlueCard(String name) {
@@ -24,27 +24,28 @@ public abstract class BlueCard extends Card{
 
     @Override
     public String toString() {
-        if (this.isOnTable()) return this.getName() + " (Na stole)";
+        if (this.isOnTable())
+            return this.getName() + " (Na stole)";
         return this.getName();
     }
 
     @Override
     public void throwCard(Player player, LinkedList<Card> deck) {
-        if (this.isOnTable()){
+        if (this.isOnTable()) {
             this.setOnTable(false);
         }
         super.throwCard(player, deck);
     }
 
     public abstract Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers);
-    
-    public boolean alreadyOnTable(Player player){
+
+    public boolean alreadyOnTable(Player player) {
         for (Card card : player.getCardsOnTable()) {
-            if (card.getName().equals(this.getName())){
+            if (card.getName().equals(this.getName())) {
                 return true;
             }
         }
         return false;
     }
-    
+
 }

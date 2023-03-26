@@ -28,10 +28,15 @@ public class CatBalou extends BrownCard {
         System.out.println(player.getCardsPrint(false));
         int choice;
         do {
+            if (player.getCards().isEmpty()){
+                System.out.println("Tento hrac nema ziadne karty!");
+                return null;
+            }
             choice = ZKlavesnice.readInt("Vyber kartu, ktoru mu chces odobrat: ");
+            
         } while (choice > player.getCards().size() || choice < 1);
 
-        return player.getCards().remove(choice-1);
+        return player.getCards().remove(choice - 1);
     }
 
 }

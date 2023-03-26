@@ -7,7 +7,7 @@ import sk.stuba.fei.uim.oop.Card;
 import sk.stuba.fei.uim.oop.Player;
 import sk.stuba.fei.uim.oop.cards.BrownCard;
 
-public class Missed extends BrownCard{
+public class Missed extends BrownCard {
 
     public Missed() {
         super("Vedla");
@@ -18,6 +18,4 @@ public class Missed extends BrownCard{
         System.out.println("Tato karta sa neda zahrat!");
     }
 
-    
-    
 }

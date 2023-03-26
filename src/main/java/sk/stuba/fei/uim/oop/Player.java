@@ -16,7 +16,7 @@ public class Player {
         this.id = id;
         this.name = name;
         this.cards = new ArrayList<>();
-        this.lives = 4;
+        this.lives = 1;
     }
 
     public int getId() {
@@ -67,8 +67,11 @@ public class Player {
         return true;
     }
 
+    /**
+     * @return False if player has more cards than lives, True otherwise
+     */
     public boolean checkCardAmount() {
-        if (this.cards.size() >= this.getLives()) {
+        if ((this.cards.size() - this.getCardsOnTable().size()) > this.getLives()) {
             return false;
         }
         return true;
@@ -114,6 +117,10 @@ public class Player {
                 return;
             }
             this.setLives(this.getLives() - amount);
+            if(this.getLives() < 0){
+                this.setLives(0);
+                System.out.println("\n! Hrac " + this.getName() + "zomrel :( !\n");
+            }
         }
 
     }
@@ -136,4 +143,5 @@ public class Player {
 
         return cardsOnTable;
     }
+
 }

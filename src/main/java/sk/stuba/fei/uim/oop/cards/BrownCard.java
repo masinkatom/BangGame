@@ -9,6 +9,4 @@ public abstract class BrownCard extends Card{
     }
     
     
-    
-    
 }

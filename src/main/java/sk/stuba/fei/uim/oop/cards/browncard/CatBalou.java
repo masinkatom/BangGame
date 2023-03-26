@@ -31,7 +31,7 @@ public class CatBalou extends BrownCard {
             choice = ZKlavesnice.readInt("Vyber kartu, ktoru mu chces odobrat: ");
         } while (choice > player.getCards().size() || choice < 1);
 
-        return player.getCards().remove(choice);
+        return player.getCards().remove(choice-1);
     }
 
 }

@@ -23,14 +23,19 @@ public class Barrel extends BlueCard{
         
     }
 
-    @Override
-    public int play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
+    public boolean play(){
         int rand = (int) (Math.random()*3);
         if (rand == 0){
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
+
+    @Override
+    public Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
+        return player;
+    }
+    
 
 
 

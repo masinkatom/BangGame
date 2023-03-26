@@ -23,16 +23,24 @@ public class Dynamite extends BlueCard{
         
     }
 
-
     @Override
-    public int play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
+    public Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
         int random = (int) (Math.random()*7);
         if (random == 0){
             player.changeLives(false, 3);
             this.throwCard(player, deck);
-            return 0;
+            return player;
         }
-        return 3;
+        player.removeCard(this);
+        this.prevPlayer(player, targetPlayers).recieveCard(this);
+        return player;
+    }
+
+    private Player prevPlayer(Player player, ArrayList<Player> players) {
+        if (player.getId() <= 0) {
+            return players.get(players.size() - 1);
+        }
+        return players.get(player.getId() - 1);
     }
 
     

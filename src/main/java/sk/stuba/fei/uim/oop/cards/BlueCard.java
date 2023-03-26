@@ -36,14 +36,7 @@ public abstract class BlueCard extends Card{
         super.throwCard(player, deck);
     }
 
-    /**
-     * @return 
-     * <p>0 - barrel unsuccessful/ prison draw success/ dynamite exploded</p>
-     * <p>1 - barrel successful </p>
-     * <p>2 - prison draw unsuccessful </p>
-     * <p>3 - dynamite not detonated </p>
-     */
-    public abstract int play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers);
+    public abstract Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers);
     
     
 }

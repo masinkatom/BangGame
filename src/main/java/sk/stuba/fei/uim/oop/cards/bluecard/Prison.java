@@ -25,17 +25,22 @@ public class Prison extends BlueCard{
     }
 
     @Override
-    public int play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
+    public Player play(Player player, LinkedList<Card> deck, ArrayList<Player> targetPlayers) {
         this.throwCard(player, deck);
         int random = (int) (Math.random()*3);
         if (random == 0){
-            return 0;
+            return player;
         }
-        return 2;
+        player = nextPlayer(player, targetPlayers);
+        return player;
     }
 
-    
-    
-    
+    private Player nextPlayer(Player player, ArrayList<Player> players) {
+        if (player.getId() >= players.size() - 1) {
+            return players.get(0);
+        }
+        return players.get(player.getId() + 1);
+
+    }
 
 }

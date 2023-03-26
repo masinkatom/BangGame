@@ -14,7 +14,6 @@ import sk.stuba.fei.uim.oop.cards.browncard.Stagecoach;
 import sk.stuba.fei.uim.oop.cards.browncard.Indians;
 import sk.stuba.fei.uim.oop.cards.browncard.Beer;
 import sk.stuba.fei.uim.oop.cards.browncard.Missed;
-import sk.stuba.fei.uim.oop.utility.ConsoleDecorator;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class GameManager {
@@ -28,7 +27,7 @@ public class GameManager {
         System.out.println("Vitaj v hre BANG!\n");
         int playerCount = ZKlavesnice.readInt("Zadaj pocet hracov tejto hry (2-4): ");
         while (playerCount < 2 || playerCount > 4) {
-            playerCount = ZKlavesnice.readInt("\nNespravny pocet hracov!\n\nZadaj pocet hracov tejto hry (2-4): ");
+            playerCount = ZKlavesnice.readInt("\n! Nespravny pocet hracov!\n\nZadaj pocet hracov tejto hry (2-4): ");
         }
 
         this.players = new ArrayList<>(playerCount);
@@ -40,36 +39,26 @@ public class GameManager {
 
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
     private void startPLaying() {
-
-        try {
-            System.out.println("\n...hra sa zacina");
-            Thread.sleep(200);
-            System.out.println("\n...rozdavanie kariet\n");
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        this.getHorizontalLine();
+        System.out.println("\n...hra sa zacina");
+        System.out.println("\n...rozdavanie kariet\n");
 
         this.initDeck();
         this.giveCards();
 
         currPlayer = players.get(0);
-        while (players.size() > 1) { // TODO UPRAVIT UKONCOVACIU PODMIENKU
+        while (players.size() > 1) {
             if (!currPlayer.isAlive()) {
-                // TODO vratit karty do odhadzov. balicka v pripade smrti - a vyhodit hraca z
-                // arraylistu
                 currPlayer = this.nextPlayer();
+                players.remove(currPlayer);
             }
             this.playTurn();
             currPlayer = this.nextPlayer();
 
-            // TODO vymazat toto
-            ZKlavesnice.readString("Cakam na input");
+            this.getHorizontalLine();
+            ZKlavesnice.readString("STLAC NEJAKU KLAVESU a ENTER PRE ZACATIE KOLA");
+            this.getHorizontalLine();
         }
         // TODO VITAZOM HRY JE ...
 
@@ -130,34 +119,29 @@ public class GameManager {
 
     }
 
-    private Player prevPlayer() {
-        if (this.currPlayer.getId() <= 0) {
-            return players.get(players.size() - 1);
-        }
-        return players.get(this.currPlayer.getId() - 1);
-    }
-
     private void playTurn() {
-        ConsoleDecorator.getHorizontalLine();
+        Player currP = this.currPlayer;
+        this.getHorizontalLine();
         System.out.println("Na tahu je " + this.currPlayer.getName() + ".");
-        ConsoleDecorator.getHorizontalLine(); // TODO DOROBIT
+        this.getHorizontalLine(); // TODO DOROBIT
 
         this.playOnTable();
+
+        if (currP != this.currPlayer) {
+            return;
+        }
 
         this.giveTwoCards();
         System.out.println("Boli ti pridane 2 karty");
 
         boolean endRound = false;
 
-        while (!endRound && currPlayer.isAlive()) {
+        while (!endRound && currPlayer.isAlive() && players.size() > 1) {
             String[] playerInput = parseTurnInput();
             switch (playerInput[0]) {
                 case "h": {
-                    printDeck();
                     currPlayer.getCards().get(Integer.parseInt(playerInput[1])).play(this.currPlayer, players,
                             this.deck);
-                    printDeck();
-                    // TODO vymazat kartu hracovi po pouziti (mozno v classe Card)
                     break;
                 }
                 case "o": { // TODO odhadzovanie az v tretej faze
@@ -165,19 +149,22 @@ public class GameManager {
                     break;
                 }
                 case "": {
+                    if (!currPlayer.checkCardAmount()) {
+                        System.out.println("Pocet tvojich kariet prevysuje tvoj pocet zivotov!\n\tZahod nejake karty!");
+                        break;
+                    }
+                    this.getHorizontalLine();
                     System.out.println("Koniec kola");
+                    this.getHorizontalLine();
                     endRound = true;
                     break;
                 }
                 default: {
                     break;
                 }
-
                 // TODO Alex Tapsak virginia
             }
-
         }
-
     }
 
     private void giveTwoCards() {
@@ -191,7 +178,10 @@ public class GameManager {
         String[] in;
         try {
             do {
-                System.out.println("\nTvoje karty: " + currPlayer.getCardsPrint(true) + "\n");
+                this.getHorizontalLine();
+                System.out.println("Tvoje karty: " + currPlayer.getCardsPrint(true));
+                this.getHorizontalLine();
+
                 in = ZKlavesnice.readString("Hraj (h) alebo odhod (o) n-tu kartu (napr. h 3)\nEnter - Koniec kola")
                         .split(" ");
                 if (in[0].equals("") && in.length == 1)
@@ -209,24 +199,17 @@ public class GameManager {
         return in;
     }
 
-    private void printDeck() { // TODO Vymazat
-        System.out.println("\nDECK " + deck);
-    }
+    public void playOnTable() {
 
-    private void playOnTable(){
-        
         for (Card card : this.currPlayer.getCardsOnTable()) {
 
-            //((BlueCard) card).play(currPlayer, deck, players);
+            this.currPlayer = ((BlueCard) card).play(this.currPlayer, deck, players);
 
-            int res = ((BlueCard) card).play(currPlayer, deck, players);
-            if(res == 2){
-                currPlayer = this.nextPlayer();
-            }
-            if(res == 3){
-                this.prevPlayer().recieveCard(card);
-            }
-        }// TODO DOROBIT
+        } // TODO DOROBIT
+    }
+
+    private void getHorizontalLine(){
+        System.out.println("\n--------------------------------\n");
     }
 
 }

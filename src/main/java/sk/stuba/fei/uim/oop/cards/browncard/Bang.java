@@ -19,14 +19,14 @@ public class Bang extends BrownCard {
         super.play(currPlayer, targetPlayers, deck);
         
         Player target = findTarget(currPlayer, targetPlayers);
-        int saved = 0;
+        boolean saved = false;
         Barrel barrel = this.checkForBarrel(target);
         
         if (barrel != null) {
-            saved = barrel.play(target, deck, targetPlayers);
+            saved = barrel.play();
         }
 
-        if(saved == 0){
+        if(!saved){
             Missed missed = this.checkForMissed(target);
             if (missed != null) {
                 missed.throwCard(target, deck);

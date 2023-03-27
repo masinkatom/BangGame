@@ -85,6 +85,7 @@ public class Player {
                 if (!((BlueCard) card).isOnTable()) {
                     out += ((i + 1) + " > " + "<Karta na ruke>");
                 }
+                else out += ((i + 1) + " > " + card);
             }
 
             else
